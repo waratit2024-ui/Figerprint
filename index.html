@@ -38,7 +38,7 @@
         .page-header {
             background-color: var(--primary-color);
             color: white;
-            padding: 1.5rem 1rem;
+            padding: 1.2rem 1rem;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
@@ -46,12 +46,12 @@
         .page-header h1 {
             margin: 0;
             font-weight: 700;
-            font-size: clamp(1.8em, 5vw, 2.5em); /* Responsive font size */
+            font-size: clamp(1.4em, 5vw, 2em); /* Responsive font size */
         }
         
         .page-header p {
             margin: 0.5rem 0 0;
-            font-size: clamp(1em, 2vw, 1.1em); /* Responsive font size */
+            font-size: clamp(0.9em, 3vw, 1em);
             color: #bdc3c7;
         }
 
@@ -60,28 +60,28 @@
             flex-grow: 1;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 3rem 1rem;
+            align-items: flex-start;
+            padding: 2rem 1rem;
         }
 
         .card-container {
             background-color: var(--card-bg);
-            padding: 2.5rem;
+            padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            width: 90%;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
             max-width: 950px;
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 2rem;
-            box-sizing: border-box; /* To ensure padding is included in width */
+            gap: 1.5rem;
+            box-sizing: border-box;
         }
 
         .two-column-layout {
             display: flex;
             flex-direction: row;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .left-column, .right-column {
@@ -91,13 +91,9 @@
             gap: 1rem;
         }
         
-        .right-column {
-            padding-top: 0.5rem;
-        }
-
         #image-preview {
             width: 100%;
-            height: clamp(250px, 50vw, 400px); /* Responsive height */
+            height: clamp(200px, 50vw, 350px); /* Responsive height */
             border: 3px dashed var(--border-color);
             border-radius: 8px;
             display: flex;
@@ -122,16 +118,16 @@
         .placeholder-text {
             color: #95a5a6;
             font-style: italic;
-            font-size: 1.1em;
+            font-size: 1em;
             text-align: center;
-            padding: 1rem;
+            padding: 0.5rem;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 10px 16px;
             border: none;
             border-radius: 6px;
-            font-size: clamp(1em, 2vw, 1.1em);
+            font-size: clamp(0.9em, 2.5vw, 1em);
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -179,7 +175,7 @@
             margin-top: 0;
             margin-bottom: 0.75rem;
             color: var(--primary-color);
-            font-size: 1.3em;
+            font-size: 1.1em;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -190,9 +186,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 0;
+            padding: 0.6rem 0;
             border-bottom: 1px solid #ecf0f1;
-            font-size: 1em;
+            font-size: 0.95em;
         }
 
         .prediction-item:last-child {
@@ -215,22 +211,39 @@
         .page-footer {
             background-color: var(--primary-color);
             color: white;
-            padding: 1.5rem 1rem;
+            padding: 1rem;
             text-align: center;
-            font-size: 0.9em;
+            font-size: 0.8em;
         }
 
         /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
-            .card-container {
-                padding: 1.5rem;
-            }
             .two-column-layout {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 1rem;
             }
             .main-content {
-                padding: 1.5rem 1rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-container {
+                padding: 1rem;
+                gap: 1rem;
+            }
+            #image-preview {
+                height: 200px;
+            }
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+            #label-container h3 {
+                font-size: 1em;
+            }
+            .prediction-item {
+                font-size: 0.85em;
             }
         }
     </style>
@@ -284,7 +297,6 @@
         const imagePreview = document.getElementById('image-preview');
         const labelContainer = document.getElementById('label-container');
         const resetButton = document.getElementById('reset-button');
-        const placeholderText = document.querySelector('.placeholder-text');
 
         async function init() {
             const modelURL = URL + "model.json";
@@ -333,7 +345,6 @@
                     img.onload = async () => {
                         imagePreview.innerHTML = '';
                         imagePreview.appendChild(img);
-                        placeholderText.style.display = 'none';
                         await predict();
                     };
                 };

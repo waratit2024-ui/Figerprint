@@ -1,36 +1,355 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <base target="_top">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เว็บแอป</title>
+    <title>ระบบวิเคราะห์ภาพสถาปัตยกรรม</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue-Gray */
+            --primary-light: #34495e;
+            --accent-color: #3498db; /* Bright Blue */
+            --success-color: #2ecc71; /* Green */
+            --text-color: #34495e;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #ecf0f1;
+        }
+
         body {
+            font-family: 'Sarabun', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-            font-family: "Sarabun", sans-serif;
-            background: #f9fafb;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        header {
-            background: #4f46e5;
+
+        /* Header Section */
+        .page-header {
+            background-color: var(--primary-color);
             color: white;
-            padding: 10px 20px;
-            font-size: 20px;
-            font-weight: bold;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-weight: 700;
+            font-size: clamp(1.8em, 5vw, 2.5em); /* Responsive font size */
+        }
+        
+        .page-header p {
+            margin: 0.5rem 0 0;
+            font-size: clamp(1em, 2vw, 1.1em); /* Responsive font size */
+            color: #bdc3c7;
+        }
+
+        /* Main Content Section */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 1rem;
+        }
+
+        .card-container {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 90%;
+            max-width: 950px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            box-sizing: border-box; /* To ensure padding is included in width */
+        }
+
+        .two-column-layout {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+        }
+
+        .left-column, .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .right-column {
+            padding-top: 0.5rem;
+        }
+
+        #image-preview {
+            width: 100%;
+            height: clamp(250px, 50vw, 400px); /* Responsive height */
+            border: 3px dashed var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #ecf0f1;
+            position: relative;
+            transition: border-color 0.3s ease;
+        }
+        
+        #image-preview.has-image {
+            border-color: var(--accent-color);
+        }
+
+        #image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .placeholder-text {
+            color: #95a5a6;
+            font-style: italic;
+            font-size: 1.1em;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: clamp(1em, 2vw, 1.1em);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            font-family: 'Sarabun', sans-serif;
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-reset:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        #label-container {
+            text-align: left;
+            width: 100%;
+        }
+        
+        #label-container h3 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+            font-size: 1.3em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prediction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 1em;
+        }
+
+        .prediction-item:last-child {
+            border-bottom: none;
+        }
+
+        .class-name {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .probability {
+            color: var(--success-color);
+            font-weight: 700;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* Footer Section */
+        .page-footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .card-container {
+                padding: 1.5rem;
+            }
+            .two-column-layout {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .main-content {
+                padding: 1.5rem 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header>🌐 ระบบเว็บแอป</header>
-    <iframe src="https://script.google.com/macros/s/AKfycbwwGOq42blSQd5MQTBAWg-etbgWexU3DjhPoGGmsghp73nAIzmgN1stj7XZfPw4_XNV/exec" scrolling="yes"></iframe>
+
+    <header class="page-header">
+      <h1><i class="fas fa-fingerprint"> </i> ระบบวิเคราะห์จำแนกประเภทลายนิ้วมือ</h1>
+      <p>อัปโหลดรูปภาพเพื่อรับการวิเคราะห์</p>
+    </header>
+
+    <main class="main-content">
+        <div class="card-container">
+            <div class="two-column-layout">
+                <div class="left-column">
+                    <div id="image-preview">
+                        <p class="placeholder-text"><i class="fas fa-image"></i><br>ภาพที่คุณอัปโหลดจะแสดงที่นี่</p>
+                    </div>
+                    
+                    <label for="image-upload" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> อัปโหลดรูปภาพ
+                    </label>
+                    <input type="file" id="image-upload" accept="image/*">
+                    
+                    <button id="reset-button" class="btn btn-reset" style="display:none;">
+                        <i class="fas fa-redo-alt"></i> รีเซ็ต
+                    </button>
+                </div>
+                
+                <div class="right-column">
+                    <div id="label-container">
+                        <h3><i class="fas fa-chart-bar"></i> ผลการวิเคราะห์</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <h4>&copy; 2025. Developed by Nawarat K.</h4>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+    <script type="text/javascript">
+        const URL = "https://teachablemachine.withgoogle.com/models/lcf2lfdoe/";
+        let model, maxPredictions;
+
+        const imageUpload = document.getElementById('image-upload');
+        const imagePreview = document.getElementById('image-preview');
+        const labelContainer = document.getElementById('label-container');
+        const resetButton = document.getElementById('reset-button');
+        const placeholderText = document.querySelector('.placeholder-text');
+
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+            try {
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+            } catch (error) {
+                console.error("Failed to load model:", error);
+                labelContainer.innerHTML = "<h3><i class='fas fa-chart-bar'></i> ผลการวิเคราะห์</h3><div>ขออภัย, ไม่สามารถโหลดโมเดลได้ในขณะนี้</div>";
+            }
+        }
+
+        async function predict() {
+            const image = document.getElementById('uploaded-image');
+            if (model && image) {
+                try {
+                    const prediction = await model.predict(image, false);
+                    labelContainer.innerHTML = "<h3><i class='fas fa-chart-bar'></i> ผลการวิเคราะห์</h3>";
+                    const sortedPrediction = prediction.sort((a, b) => b.probability - a.probability);
+
+                    sortedPrediction.forEach(p => {
+                        const div = document.createElement("div");
+                        div.className = "prediction-item";
+                        div.innerHTML = `<span class="class-name">${p.className}</span> <span class="probability">${(p.probability * 100).toFixed(2)}%</span>`;
+                        labelContainer.appendChild(div);
+                    });
+                    resetButton.style.display = 'block';
+                    imagePreview.classList.add('has-image');
+                } catch (error) {
+                    console.error("Prediction failed:", error);
+                    labelContainer.innerHTML = "<h3><i class='fas fa-chart-bar'></i> ผลการวิเคราะห์</h3><div>เกิดข้อผิดพลาดในการทำนายภาพ</div>";
+                }
+            }
+        }
+
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.id = 'uploaded-image';
+                    img.src = e.target.result;
+                    
+                    img.onload = async () => {
+                        imagePreview.innerHTML = '';
+                        imagePreview.appendChild(img);
+                        placeholderText.style.display = 'none';
+                        await predict();
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        resetButton.addEventListener('click', () => {
+            imagePreview.innerHTML = `<p class="placeholder-text"><i class="fas fa-image"></i><br>ภาพที่คุณอัปโหลดจะแสดงที่นี่</p>`;
+            labelContainer.innerHTML = "<h3><i class='fas fa-chart-bar'></i> ผลการวิเคราะห์</h3>";
+            imageUpload.value = "";
+            resetButton.style.display = 'none';
+            imagePreview.classList.remove('has-image');
+        });
+
+        init();
+    </script>
 </body>
 </html>

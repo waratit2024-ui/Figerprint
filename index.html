@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioIDNet - เทพพิทักษ์วิทยา</title>
+    <title>BioIDNet - เทพพิทักษ์วิทยา (โหมดบูธ)</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -18,7 +17,6 @@
             --school-dark: #2f3640; 
             --school-black: #1e2229; 
             --success-color: #2ecc71; 
-            --error-color: #e74c3c;
             --text-color: #353b48;
             --bg-color: #f5f6fa;
             --card-bg: #ffffff;
@@ -31,40 +29,41 @@
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            background-color: var(--bg-color);
+            background-color: var(--school-dark); /* ใช้พื้นหลังสีเข้มให้บูธดูโดดเด่น */
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Header Section */
         .page-header {
-            background: linear-gradient(135deg, var(--school-black) 0%, var(--school-dark) 100%);
+            background: linear-gradient(135deg, var(--school-black) 0%, #111 100%);
             color: white;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            border-bottom: 5px solid var(--school-yellow);
-            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-bottom: 4px solid var(--school-yellow);
+            z-index: 10;
         }
 
         .page-header h1 {
             margin: 0;
             font-weight: 700;
-            font-size: clamp(1.6em, 5vw, 2.2em);
+            font-size: clamp(1.8em, 4vw, 2.5em);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .page-header h1 i {
             color: var(--school-yellow);
-            margin-right: 8px;
-            display: inline-block;
+            margin-right: 10px;
             animation: pulse 2s infinite;
         }
         
         .page-header p {
-            margin: 0.5rem 0 0;
-            font-size: clamp(0.95em, 3vw, 1.1em);
-            color: #f5f6fa;
-            opacity: 0.9;
+            margin: 0.2rem 0 0;
+            font-size: clamp(1em, 2vw, 1.2em);
+            color: #bdc3c7;
         }
 
         .page-header .credits {
@@ -78,7 +77,6 @@
             border-radius: 20px;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(251, 197, 49, 0.3);
-            animation: bounceIn 1s ease-out;
         }
 
         /* Main Content Section */
@@ -87,214 +85,164 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem 1rem;
-            gap: 1.5rem;
-        }
-
-        /* How-to-use Instructions Card */
-        .instruction-card {
-            background-color: var(--card-bg);
-            border-left: 5px solid var(--school-yellow);
-            padding: 1.2rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            width: 100%;
-            max-width: 950px;
-            box-sizing: border-box;
-            animation: slideUp 0.5s ease-out;
-        }
-
-        .instruction-card h3 {
-            margin: 0 0 0.8rem 0;
-            color: var(--school-dark);
-            font-size: 1.1em;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .instruction-steps {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
-
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.6rem;
-            font-size: 0.9em;
-            color: #57606f;
-        }
-
-        .step-number {
-            background-color: var(--school-yellow);
-            color: var(--school-black);
-            font-weight: bold;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-            font-size: 0.85em;
+            padding: 2rem 1rem;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* App Main Workspace */
-        .card-container {
+        .booth-container {
             background-color: var(--card-bg);
             padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             width: 100%;
-            max-width: 950px;
-            border: 1px solid var(--border-color);
+            max-width: 1200px; /* ขยายให้กว้างขึ้นสำหรับจอใหญ่ที่บูธ */
+            display: flex;
+            flex-direction: row; /* แนวนอนสำหรับจอคอม */
+            gap: 2.5rem;
+            box-sizing: border-box;
+        }
+
+        .left-column {
+            flex: 1.2;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            box-sizing: border-box;
-            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .two-column-layout {
-            display: flex;
-            flex-direction: row;
-            gap: 2rem;
-        }
-
-        .left-column, .right-column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
+            align-items: center;
         }
         
-        #image-preview {
+        .camera-wrapper {
             width: 100%;
-            height: clamp(220px, 50vw, 350px);
-            border: 3px dashed var(--school-yellow);
-            border-radius: 12px;
+            max-width: 500px;
+            aspect-ratio: 1/1;
+            background-color: var(--school-black);
+            border: 4px solid var(--school-yellow);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            background-color: #f9f9f9;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        #image-preview.has-image {
-            border-style: solid;
-            border-color: var(--school-dark);
-            background-color: var(--school-black);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
         }
 
-        #image-preview img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            animation: fadeIn 0.5s ease-in-out;
+        /* ทำให้ Canvas ของกล้องเต็มกรอบพอดี */
+        .camera-wrapper canvas {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover;
+            transform: scaleX(1); /* กล้องส่องเอกสาร ไม่ต้องกลับซ้ายขวา */
         }
 
-        /* อนิเมชั่นเส้นเลเซอร์ตอนสแกน */
-        .scanner-line {
-            display: none;
+        .scanner-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, transparent, var(--school-yellow), transparent);
-            box-shadow: 0 0 8px var(--school-yellow);
-            animation: scan 2s linear infinite;
-            z-index: 10;
-        }
-
-        #image-preview.has-image .scanner-line {
-            display: block;
-        }
-
-        .placeholder-text {
-            color: #7f8c8d;
-            font-size: 1.05em;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .placeholder-text i {
-            font-size: 3rem;
-            color: var(--school-yellow);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* Buttons */
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: clamp(0.95em, 2.5vw, 1.05em);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .btn-primary {
-            background-color: var(--school-yellow);
-            color: var(--school-black);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--school-dark);
-            color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-        .btn-reset {
-            font-family: 'Sarabun', sans-serif;
-            background-color: transparent;
-            color: var(--school-dark);
-            border: 2px solid var(--school-dark);
-        }
-
-        .btn-reset:hover {
-            background-color: #636e72;
-            color: white;
-            border-color: #636e72;
-            transform: translateY(-3px);
-        }
-
-        input[type="file"] {
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
             display: none;
+            background: 
+                linear-gradient(to right, var(--school-yellow) 2px, transparent 2px) 0 0,
+                linear-gradient(to right, var(--school-yellow) 2px, transparent 2px) 0 100%,
+                linear-gradient(to left, var(--school-yellow) 2px, transparent 2px) 100% 0,
+                linear-gradient(to left, var(--school-yellow) 2px, transparent 2px) 100% 100%,
+                linear-gradient(to bottom, var(--school-yellow) 2px, transparent 2px) 0 0,
+                linear-gradient(to bottom, var(--school-yellow) 2px, transparent 2px) 100% 0,
+                linear-gradient(to top, var(--school-yellow) 2px, transparent 2px) 0 100%,
+                linear-gradient(to top, var(--school-yellow) 2px, transparent 2px) 100% 100%;
+            background-repeat: no-repeat;
+            background-size: 40px 40px;
         }
 
-        /* Results Section */
-        #label-container {
-            text-align: left;
+        .camera-wrapper.is-active .scanner-overlay {
+            display: block;
+        }
+
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 3px;
+            background: var(--school-yellow);
+            box-shadow: 0 0 15px 3px var(--school-yellow);
+            animation: scan-booth 2.5s ease-in-out infinite;
+            display: none;
+            z-index: 6;
+        }
+
+        .camera-wrapper.is-active .scanner-line {
+            display: block;
+        }
+
+        .camera-instruction {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--school-dark);
+            font-weight: 600;
+        }
+
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px dashed var(--border-color);
         }
         
-        #label-container h3 {
-            margin-top: 0;
+        .status-badge {
+            display: inline-block;
+            background-color: var(--school-yellow);
+            color: var(--school-black);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
             margin-bottom: 1rem;
-            color: var(--school-dark);
-            font-size: 1.2em;
-            font-weight: 700;
+            align-self: flex-start;
+        }
+
+        .status-badge.scanning {
+            background-color: #3498db;
+            color: white;
+            animation: pulse-bg 1.5s infinite;
+        }
+
+        #top-result {
+            text-align: center;
+            margin-bottom: 2rem;
+            min-height: 150px;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 0.5rem;
-            border-bottom: 3px solid var(--school-yellow);
-            padding-bottom: 0.4rem;
+        }
+
+        #top-class-name {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: var(--school-dark);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        #top-probability {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--success-color);
+            margin: 0;
+        }
+
+        .other-results {
+            width: 100%;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
         }
 
         .prediction-item {
@@ -302,72 +250,86 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.8rem 1rem;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 1em;
-            background-color: #fdfdfd;
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-        }
-
-        .class-name {
-            font-weight: 600;
-            color: var(--school-dark);
-        }
-
-        .probability {
-            color: #27ae60;
-            font-weight: 700;
-            min-width: 70px;
-            text-align: right;
-            background: #e8f8f5;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        /* Feedback Section (ระบบเก็บข้อมูลพัฒนาโมเดล) */
-        .feedback-box {
-            margin-top: 1.5rem;
-            background-color: #f8f9fa;
-            border: 1px dashed var(--border-color);
-            padding: 1.2rem;
+            background-color: white;
             border-radius: 8px;
-            text-align: center;
-            animation: fadeIn 0.5s ease-in;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            font-size: 1.1em;
         }
 
-        .feedback-box p {
-            margin: 0 0 0.8rem 0;
+        .prediction-item .class-name {
             font-weight: 600;
-            font-size: 0.95em;
-            color: var(--school-dark);
+            color: #7f8c8d;
         }
 
-        .feedback-buttons {
-            display: flex;
-            gap: 0.8rem;
+        .prediction-item .probability-bar-bg {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #ecf0f1;
+            margin: 0 15px;
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        .btn-correct {
-            background-color: var(--success-color);
+        .prediction-item .probability-bar-fill {
+            height: 100%;
+            background-color: #bdc3c7;
+            border-radius: 4px;
+            transition: width 0.2s ease;
+        }
+
+        .btn-start {
+            background-color: var(--school-yellow);
+            color: var(--school-black);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(251, 197, 49, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Sarabun', sans-serif;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .btn-start:hover {
+            transform: scale(1.05);
+            background-color: var(--school-dark);
             color: white;
         }
 
-        .btn-correct:hover {
-            background-color: #27ae60;
-            transform: translateY(-2px);
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        .btn-wrong {
-            background-color: var(--error-color);
-            color: white;
+        @keyframes pulse-bg {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
 
-        .btn-wrong:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
+        @keyframes scan-booth {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
         }
 
+        /* Media Queries for Booth displays (Vertical/Tablets) */
+        @media (max-width: 992px) {
+            .booth-container {
+                flex-direction: column;
+            }
+            .camera-wrapper {
+                max-width: 400px;
+            }
+        }
+        
         /* Footer Section */
         .page-footer {
             background-color: var(--school-black);
@@ -376,6 +338,7 @@
             text-align: center;
             font-size: 0.85em;
             border-top: 4px solid var(--school-yellow);
+            margin-top: auto;
         }
 
         .page-footer h4 {
@@ -388,121 +351,51 @@
             margin: 0;
             color: #bdc3c7;
         }
-
-        /* Animations */
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.08); opacity: 0.9; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes scan {
-            0% { top: 0%; }
-            50% { top: 100%; }
-            100% { top: 0%; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* Media Queries */
-        @media (max-width: 768px) {
-            .two-column-layout {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            .instruction-steps {
-                grid-template-columns: 1fr;
-                gap: 0.6rem;
-            }
-        }
     </style>
 </head>
 <body>
-
     <header class="page-header">
-        <h1><i class="fas fa-fingerprint"></i> BioIDNet</h1>
-        <p>ระบบวิเคราะห์จำแนกประเภทลายนิ้วมืออัจฉริยะ</p>
+        <h1><i class="fas fa-fingerprint"></i> BioIDNet : Scanner Station</h1>
+        <p>สถานีวิเคราะห์จำแนกประเภทลายนิ้วมือด้วย AI อัจฉริยะ</p>
         <div class="credits">
             <i class="fas fa-graduation-cap"></i> ถูกพัฒนาจากโมเดลของนักเรียนชั้นมัธยมศึกษาปีที่ 3 โรงเรียนเทพพิทักษ์วิทยา จ.แพร่
         </div>
     </header>
 
     <main class="main-content">
-        <div class="instruction-card">
-            <h3><i class="fas fa-info-circle" style="color: var(--school-yellow);"></i> วิธีการใช้งานและร่วมพัฒนา AI</h3>
-            <div class="instruction-steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div>กด <strong>"เลือกรูปภาพลายนิ้วมือ"</strong> เพื่ออัปโหลดภาพที่ต้องการตรวจสอบ</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div>รอระบบสแกนและแสดงผลลัพธ์เปอร์เซ็นต์ความแม่นยำที่แถบด้านขวา</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div><strong>ช่วยเหลือนักเรียน:</strong> กดประเมินว่า AI ทายถูกหรือผิด เพื่อส่งข้อมูลไปปรับปรุงโมเดล</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-container">
-            <div class="two-column-layout">
-                <div class="left-column">
-                    <div id="image-preview">
-                        <div class="scanner-line"></div>
-                        <p class="placeholder-text">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            เลือกรูปภาพลายนิ้วมือที่นี่ เพื่อเริ่มสแกน
-                        </p>
-                    </div>
-                    
-                    <label for="image-upload" class="btn btn-primary">
-                        <i class="fas fa-images"></i> เลือกรูปภาพลายนิ้วมือ
-                    </label>
-                    <input type="file" id="image-upload" accept="image/*">
-                    
-                    <button id="reset-button" class="btn btn-reset" style="display:none;">
-                        <i class="fas fa-sync-alt"></i> ล้างข้อมูล / รีเซ็ตใหม่
+        <div class="booth-container">
+            <!-- คอลัมน์ซ้าย: กล้องสแกน -->
+            <div class="left-column">
+                <div class="camera-wrapper" id="webcam-wrapper">
+                    <!-- ปุ่มสำหรับเริ่มต้นเปิดกล้อง (Browser บังคับให้ต้องคลิกก่อนเปิดกล้อง) -->
+                    <button class="btn-start" id="start-btn" onclick="startSystem()">
+                        <i class="fas fa-power-off"></i> แตะเพื่อเปิดระบบสแกน
                     </button>
+                    
+                    <div class="scanner-overlay"></div>
+                    <div class="scanner-line"></div>
+                    <div id="webcam-container"></div>
                 </div>
                 
-                <div class="right-column">
-                    <div id="label-container">
-                        <h3><i class="fas fa-chart-pie"></i> ผลการวิเคราะห์จาก AI</h3>
-                    </div>
+                <div class="camera-instruction">
+                    <i class="fas fa-hand-paper" style="color:var(--school-yellow);"></i> 
+                    กรุณานำกระดาษลายนิ้วมือ มาส่องที่หน้ากล้อง
+                </div>
+            </div>
+            
+            <!-- คอลัมน์ขวา: ผลการประมวลผล -->
+            <div class="right-column">
+                <div class="status-badge" id="system-status">
+                    <i class="fas fa-sleep"></i> ระบบกำลังพัก
+                </div>
 
-                    <div id="feedback-container" class="feedback-box" style="display: none;">
-                        <p><i class="fas fa-tools" style="color:var(--school-yellow);"></i> ช่วยตรวจงาน AI: ผลลัพธ์นี้ถูกต้องหรือไม่?</p>
-                        <div class="feedback-buttons">
-                            <button class="btn btn-correct" onclick="submitFeedback(true)">
-                                <i class="fas fa-check-circle"></i> ถูกต้องจ้า
-                            </button>
-                            <button class="btn btn-wrong" onclick="submitFeedback(false)">
-                                <i class="fas fa-times-circle"></i> ยังไม่ถูกนะ
-                            </button>
-                        </div>
-                    </div>
+                <div id="top-result">
+                    <h2 id="top-class-name" style="color:#bdc3c7;"><i class="fas fa-search"></i> รอการสแกน...</h2>
+                    <div id="top-probability"></div>
+                </div>
+
+                <div class="other-results" id="label-container">
+                    <!-- รายการผลลัพธ์อันดับรองจะถูกสร้างที่นี่โดย JS -->
                 </div>
             </div>
         </div>
@@ -520,128 +413,130 @@
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
     <script type="text/javascript">
+        // ลิงก์โมเดลของคุณ
         const URL = "https://teachablemachine.withgoogle.com/models/lcf2lfdoe/";
-        let model, maxPredictions;
-        let currentTopPrediction = ""; // เก็บชื่อคลาสที่ทายได้สูงสุด ณ ขณะนั้น
+        
+        let model, webcam, labelContainer, maxPredictions;
+        let isRunning = false;
 
-        const imageUpload = document.getElementById('image-upload');
-        const imagePreview = document.getElementById('image-preview');
-        const labelContainer = document.getElementById('label-container');
-        const resetButton = document.getElementById('reset-button');
-        const feedbackContainer = document.getElementById('feedback-container');
+        // DOM Elements
+        const startBtn = document.getElementById('start-btn');
+        const webcamWrapper = document.getElementById('webcam-wrapper');
+        const systemStatus = document.getElementById('system-status');
+        const topClassName = document.getElementById('top-class-name');
+        const topProbability = document.getElementById('top-probability');
+        const otherResultsContainer = document.getElementById('label-container');
 
-        async function init() {
+        // ฟังก์ชันเริ่มระบบ (เรียกเมื่อกดปุ่ม)
+        async function startSystem() {
+            startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังโหลดโมเดล...';
+            startBtn.disabled = true;
+
             const modelURL = URL + "model.json";
             const metadataURL = URL + "metadata.json";
+
             try {
+                // 1. โหลดโมเดล
                 model = await tmImage.load(modelURL, metadataURL);
                 maxPredictions = model.getTotalClasses();
+
+                // 2. ตั้งค่า Webcam
+                // flip = false เพราะต้องการส่องเอกสาร/กระดาษ ซ้ายขวาจะได้ไม่กลับด้าน
+                const flip = false; 
+                webcam = new tmImage.Webcam(500, 500, flip); 
+                
+                await webcam.setup(); // ขอสิทธิ์ใช้งานกล้อง
+                await webcam.play();  // เริ่มเล่นวิดีโอ
+                
+                // 3. ปรับ UI เมื่อพร้อม
+                startBtn.style.display = "none";
+                webcamWrapper.classList.add('is-active');
+                systemStatus.className = "status-badge scanning";
+                systemStatus.innerHTML = '<i class="fas fa-radar"></i> AI กำลังตรวจจับแบบเรียลไทม์';
+                
+                // นำ canvas ของกล้องไปใส่ใน HTML
+                document.getElementById("webcam-container").appendChild(webcam.canvas);
+                
+                isRunning = true;
+                
+                // เริ่มลูปประมวลผล
+                window.requestAnimationFrame(loop);
+
             } catch (error) {
-                console.error("Failed to load model:", error);
-                labelContainer.innerHTML = "<h3><i class='fas fa-chart-pie'></i> ผลการวิเคราะห์จาก AI</h3><div style='color:#e74c3c; padding:10px; background:#fce4d6; border-radius:6px;'>❌ ขออภัย ไม่สามารถเชื่อมต่อกับฐานข้อมูลโมเดลได้</div>";
+                console.error("Camera access or Model loading failed:", error);
+                startBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ไม่สามารถเปิดกล้องได้';
+                startBtn.style.backgroundColor = "#e74c3c";
+                startBtn.style.color = "white";
             }
         }
 
+        // ลูปดึงภาพจากกล้องมาทำงานต่อเนื่อง
+        async function loop() {
+            if (isRunning) {
+                webcam.update(); // อัปเดตเฟรมภาพจากกล้อง
+                await predict(); // ทำนายผล
+                window.requestAnimationFrame(loop); // วนลูปต่อไป
+            }
+        }
+
+        // ประมวลผลและแสดงบนหน้าจอ
         async function predict() {
-            const image = document.getElementById('uploaded-image');
-            if (model && image) {
-                try {
-                    const prediction = await model.predict(image, false);
-                    labelContainer.innerHTML = "<h3><i class='fas fa-chart-pie'></i> ผลการวิเคราะห์จาก AI</h3>";
-                    
-                    const sortedPrediction = prediction.sort((a, b) => b.probability - a.probability);
-                    
-                    // บันทึกผลลัพธ์อันดับ 1 ไว้ใช้ทำประวัติการบันทึกข้อมูล
-                    currentTopPrediction = sortedPrediction[0].className;
+            // ทำนายภาพจาก webcam
+            const prediction = await model.predict(webcam.canvas);
+            
+            // เรียงลำดับจากความน่าจะเป็น (Probability) สูงสุดไปต่ำสุด
+            prediction.sort((a, b) => b.probability - a.probability);
 
-                    sortedPrediction.forEach((p, index) => {
-                        const div = document.createElement("div");
-                        div.className = "prediction-item";
-                        div.style.animationDelay = `${index * 0.1}s`;
-                        
-                        div.innerHTML = `
-                            <span class="class-name"><i class="fas fa-fingerprint" style="color:var(--school-yellow); margin-right:5px;"></i> ${p.className}</span> 
-                            <span class="probability">${(p.probability * 100).toFixed(2)}%</span>
-                        `;
-                        labelContainer.appendChild(div);
-                    });
-                    
-                    resetButton.style.display = 'flex';
-                    feedbackContainer.style.display = 'block'; // แสดงกล่องโหวตความถูกต้อง
-                    imagePreview.classList.add('has-image');
-                } catch (error) {
-                    console.error("Prediction failed:", error);
-                    labelContainer.innerHTML = "<h3><i class='fas fa-chart-pie'></i> ผลการวิเคราะห์จาก AI</h3><div style='color:#e74c3c;'>เกิดข้อผิดพลาดในการประมวลผลลัพธ์ลายนิ้วมือ</div>";
-                }
+            // ดึงผลลัพธ์อันดับ 1
+            const topPred = prediction[0];
+            const topProb = (topPred.probability * 100).toFixed(0);
+
+            // เงื่อนไขสำหรับ Booth: ถ่ายภาพกระดาษเปล่า หรือความมั่นใจต่ำ ให้แสดงว่า "กำลังค้นหา..."
+            // คุณสามารถปรับตัวเลข 60 นี้ได้ (หากส่องกระดาษแล้วเปอร์เซ็นต์ไม่ถึง ให้ปรับลงมา)
+            const THRESHOLD = 60; 
+
+            if (topProb >= THRESHOLD) {
+                // เจอแบบชัดเจน
+                topClassName.innerHTML = topPred.className;
+                topClassName.style.color = "var(--school-dark)";
+                topProbability.innerHTML = `${topProb}%`;
+                webcamWrapper.style.borderColor = "var(--success-color)";
+                systemStatus.innerHTML = '<i class="fas fa-check-circle"></i> ตรวจพบรูปแบบลายนิ้วมือ';
+                systemStatus.style.backgroundColor = "var(--success-color)";
+            } else {
+                // ไม่ชัดเจน / ไม่เจอกระดาษ
+                topClassName.innerHTML = "<i class='fas fa-search'></i> ส่องกระดาษใกล้ๆ";
+                topClassName.style.color = "#95a5a6";
+                topProbability.innerHTML = "";
+                webcamWrapper.style.borderColor = "var(--school-yellow)";
+                systemStatus.innerHTML = '<i class="fas fa-radar"></i> AI กำลังตรวจจับ...';
+                systemStatus.style.backgroundColor = "#3498db";
+            }
+
+            // ล้างผลลัพธ์อันดับรองเพื่อวาดใหม่
+            otherResultsContainer.innerHTML = "";
+
+            // แสดงผลลัพธ์อันดับ 2 และ 3 (ข้ามอันดับ 0 เพราะโชว์ไปแล้วข้างบน)
+            for (let i = 1; i < maxPredictions; i++) {
+                if(i > 3) break; // แสดงแค่อันดับรองลงมาสัก 2-3 อันก็พอ
+
+                const probPercent = (prediction[i].probability * 100).toFixed(0);
+                
+                const div = document.createElement("div");
+                div.className = "prediction-item";
+                
+                div.innerHTML = `
+                    <span class="class-name">${prediction[i].className}</span> 
+                    <div class="probability-bar-bg">
+                        <div class="probability-bar-fill" style="width: ${probPercent}%;"></div>
+                    </div>
+                    <span style="font-weight:bold; color:#7f8c8d; min-width: 45px; text-align:right;">
+                        ${probPercent}%
+                    </span>
+                `;
+                otherResultsContainer.appendChild(div);
             }
         }
-
-        // ระบบบันทึกข้อมูลป้อนกลับ (Feedback) เพื่อเอาไปพัฒนา Dataset ต่อ
-        function submitFeedback(isCorrect) {
-            const statusText = isCorrect ? "ถูกต้อง ✅" : "ไม่ถูกต้อง ❌";
-            
-            // ในขั้นตอนนี้ ข้อมูลจะถูกเก็บไว้บน Console Log เพื่อให้นักเรียนสามารถนำ Log ไปวิเคราะห์ทำสถิติได้
-            // หรือสามารถต่อยอดส่งข้อมูลไปยัง Google Sheets / Firebase ในอนาคตได้ครับ
-            console.log(`[Model Feedback Log] คลาสที่ทำนาย: ${currentTopPrediction} | ผลการประเมินจากผู้ใช้: ${statusText}`);
-            
-            // แสดงข้อความขอบคุณน่ารักๆ เมื่อกดส่งข้อมูลเสร็จ
-            feedbackContainer.innerHTML = `
-                <div style="color: var(--success-color); font-weight: bold; animation: popIn 0.3s ease;">
-                    <i class="fas fa-heart"></i> บันทึกข้อมูลแล้ว! ขอบคุณที่ช่วยพวกเราพัฒนาโมเดลนะคะ/ครับ
-                </div>
-            `;
-        }
-
-        imageUpload.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = document.createElement('img');
-                    img.id = 'uploaded-image';
-                    img.src = e.target.result;
-                    
-                    img.onload = async () => {
-                        imagePreview.innerHTML = '<div class="scanner-line"></div>'; 
-                        imagePreview.appendChild(img);
-                        imagePreview.classList.add('has-image');
-                        await predict();
-                    };
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        resetButton.addEventListener('click', () => {
-            imagePreview.innerHTML = `
-                <div class="scanner-line"></div>
-                <p class="placeholder-text">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    เลือกรูปภาพลายนิ้วมือที่นี่ เพื่อเริ่มสแกน
-                </p>
-            `;
-            labelContainer.innerHTML = "<h3><i class='fas fa-chart-pie'></i> ผลการวิเคราะห์จาก AI</h3>";
-            imageUpload.value = "";
-            resetButton.style.display = 'none';
-            
-            // รีเซ็ตหน้าตากล่อง Feedback กลับมาเหมือนเดิม
-            feedbackContainer.style.display = 'none';
-            feedbackContainer.innerHTML = `
-                <p><i class="fas fa-tools" style="color:var(--school-yellow);"></i> ช่วยตรวจงาน AI: ผลลัพธ์นี้ถูกต้องหรือไม่?</p>
-                <div class="feedback-buttons">
-                    <button class="btn btn-correct" onclick="submitFeedback(true)">
-                        <i class="fas fa-check-circle"></i> ถูกต้องจ้า
-                    </button>
-                    <button class="btn btn-wrong" onclick="submitFeedback(false)">
-                        <i class="fas fa-times-circle"></i> ยังไม่ถูกนะ
-                    </button>
-                </div>
-            `;
-            
-            imagePreview.classList.remove('has-image');
-        });
-
-        init();
     </script>
 </body>
 </html>
